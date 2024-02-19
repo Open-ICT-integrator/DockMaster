@@ -1,0 +1,12 @@
+{
+    "name": "DockMaster",
+    "dockerComposeFile": [
+        "docker-compose-dev.yml"
+    ],
+    "service": "server-dev",
+    "workspaceFolder": "/usr/src/app",
+    "forwardPorts": [
+        8080
+    ],
+    "postCreateCommand": "rustc --version"
+}
