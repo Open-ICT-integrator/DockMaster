@@ -18,9 +18,23 @@ jobs:
         run: |
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-      - name: Build
+      - name: Build (debug)
         run: cargo build --verbose
         working-directory: dock_master
+
+      - name: Build (release)
+        run: cargo build --release --verbose
+        working-directory: dock_master
+
+      - name: Generate Documentation
+        run: cargo doc --no-deps
+        working-directory: dock_master
+
+      - name: Upload Binary Artifact (release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: DockMasterApi
+          path: dock_master/target/release/dock_master
 
   test:
     needs: build
@@ -34,7 +48,7 @@ jobs:
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
       - name: Install and run Checkmate
-        run: cargo install checkmate && cargo checkmate
+        run: cargo install cargo-checkmate && cargo checkmate
         working-directory: dock_master
 
       - name: Run Tests
