@@ -20,6 +20,7 @@ jobs:
 
       - name: Build
         run: cargo build --verbose
+        working-directory: dock_master
 
   test:
     needs: build
@@ -34,6 +35,8 @@ jobs:
 
       - name: Install and run Checkmate
         run: cargo install checkmate && cargo checkmate
+        working-directory: dock_master
 
       - name: Run Tests
         run: cargo test
+        working-directory: dock_master
