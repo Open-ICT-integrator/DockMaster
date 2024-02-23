@@ -1,57 +1,41 @@
+pub mod config;
+pub mod controllers;
+pub mod middlewares;
+pub mod models;
+pub mod services;
+pub mod utils;
+
+use crate::models::todo::Todo;
+
 use actix_web::middleware::{Compress, Logger};
-use actix_web::{get, post, App, HttpResponse, HttpServer, Responder};
-use serde::{Deserialize, Serialize};
-use utoipa::{OpenApi, ToSchema};
+use actix_web::{App, HttpServer};
+use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
 
-#[derive(Serialize, Deserialize, ToSchema)]
-pub struct EchoResponse {
-    message: String,
-}
-
-#[utoipa::path(
-    get,
-    path = "/",
-    responses(
-        (status = 200, description = "Returns a greeting", body = String),
+#[derive(OpenApi)]
+#[openapi(
+    paths(
+        controllers::todo_controller::get_todos,
     ),
+    components(schemas(Todo)),
+    tags(
+        (name = "Todos", description = "Operations about todos"),
+    )
 )]
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
-
-#[utoipa::path(
-    post,
-    path = "/echo",
-    request_body = String,
-    responses(
-        (status = 200, description = "Echoes the request body", body = EchoResponse),
-    ),
-)]
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().json(EchoResponse { message: req_body })
-}
-
-#[derive(utoipa::OpenApi)]
-#[openapi(paths(hello, echo), components(schemas(EchoResponse)))]
 struct ApiDoc;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let openapi: utoipa::openapi::OpenApi = ApiDoc::openapi();
-
     HttpServer::new(move || {
         let mut app = App::new()
             .wrap(Logger::default())
             .wrap(Compress::default())
-            .service(hello)
-            .service(echo);
+            .service(controllers::todo_controller::get_todos);
 
         #[cfg(debug_assertions)]
         {
-            app = app.service(SwaggerUi::new("/swagger/{_:.*}").url("/swagger.json", openapi.clone()));
+            app = app
+                .service(SwaggerUi::new("/swagger/{_:.*}").url("/swagger.json", ApiDoc::openapi()));
         }
 
         app

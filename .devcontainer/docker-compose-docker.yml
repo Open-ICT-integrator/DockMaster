@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  docker-in-docker:
+    image: docker:dind
+    privileged: true
+    ports:
+      - 2375:2375 # Expose only the non-TLS port
+    command: ["--api-cors-header='*'", "-H", "tcp://0.0.0.0:2375"]
+    environment:
+      - DOCKER_TLS_CERTDIR= # Disable TLS by setting this to an empty value
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

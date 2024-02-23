@@ -1,12 +1,26 @@
 {
     "name": "DockMaster",
     "dockerComposeFile": [
+        "docker-compose-docker.yml",
+        "docker-compose-postgres.yml",
         "docker-compose-dev.yml"
     ],
     "service": "server-dev",
     "workspaceFolder": "/usr/src/app",
     "forwardPorts": [
-        8080
+        8080,
+        2375,
+        5432
     ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "serayuzgur.crates",
+                "dustypomerleau.rust-syntax",
+                "tamasfe.even-better-toml"
+            ]
+        }
+    },
     "postCreateCommand": "rustc --version"
 }

@@ -6,7 +6,15 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-web = { version = "4" }
-utoipa = { version = "4", features = ["actix_extras"] }
+
+actix-web = { version = "4.5.1" }
+utoipa = { version = "4.2.0", features = ["actix_extras"] }
 utoipa-swagger-ui = { version = "6", features = ["actix-web"] }
-serde = "1.0.196"
+serde = "1.0.197"
+reqwest = { version = "0.11.24", features = ["json"] }
+sea-orm = { version = "0.12", features = [
+    "sqlx-postgres",
+    "runtime-tokio-native-tls",
+    "macros",
+] }
+uuid = { version = "1.7.0", features = ["v4"] }

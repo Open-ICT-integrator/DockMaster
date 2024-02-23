@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.0
+
 ######################################################################
 # Base Stage
 ######################################################################
@@ -19,7 +21,8 @@ FROM base AS development
 # Install any tools that are needed for development
 RUN rustup component add rustfmt
 RUN rustup component add clippy
-RUN cargo install cargo-checkmate
+RUN cargo install cargo-checkmate && \
+    cargo install sea-orm-cli
 
 ######################################################################
 # Builder Stage

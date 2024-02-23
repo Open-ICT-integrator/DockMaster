@@ -9,26 +9,25 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
+    -  
+      name: Checkout
+      uses: actions/checkout@v4
 
-    - name: Install Rust toolchain
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        override: true
+    - 
+      name: Install Rust toolchain
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-    - name: Build
+    - 
+      name: Build
       uses: actions-rs/cargo@v1
-      with:
-        command: build
-        args: --release
+      run: cargo build --verbose
 
-    - name: Install and run Checkmate
+    - 
+      name: Install and run Checkmate
       run: cargo install checkmate && cargo checkmate
 
-    - name: Run testse
-      uses: actions-rs/cargo@v1
-      with:
-        command: test
+    - 
+      name: Run Tests
+      run: cargo test
