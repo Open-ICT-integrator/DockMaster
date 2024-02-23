@@ -9,3 +9,4 @@
 8. Setup workflow for documentation with `cargo doc`
 9. Write integration tests
 10. Write unit tests
+11. Kubernetes
