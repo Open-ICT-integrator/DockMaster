@@ -1,0 +1,70 @@
+-- This file should undo anything in `up.sql`
+
+-- Dropping foreign keys
+ALTER TABLE IF EXISTS public.volume DROP CONSTRAINT IF EXISTS volume_container_stack_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_container_config_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_container_stack_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_dependency_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_environment_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_health_check_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_image_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_label_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_network_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_user_id_foreign;
+ALTER TABLE IF EXISTS public.container DROP CONSTRAINT IF EXISTS container_volume_id_foreign;
+ALTER TABLE IF EXISTS public.container_stack DROP CONSTRAINT IF EXISTS container_stack_user_id_foreign;
+ALTER TABLE IF EXISTS public.image DROP CONSTRAINT IF EXISTS image_registry_id_foreign;
+ALTER TABLE IF EXISTS public.network DROP CONSTRAINT IF EXISTS network_label_id_foreign;
+ALTER TABLE IF EXISTS public.network_label DROP CONSTRAINT IF EXISTS network_label_label_id_foreign;
+ALTER TABLE IF EXISTS public.network_label DROP CONSTRAINT IF EXISTS network_label_network_id_foreign;
+ALTER TABLE IF EXISTS public.port DROP CONSTRAINT IF EXISTS port_id_foreign;
+ALTER TABLE IF EXISTS public.registry DROP CONSTRAINT IF EXISTS registry_user_id_foreign;
+ALTER TABLE IF EXISTS public.ssh_connection DROP CONSTRAINT IF EXISTS ssh_connection_container_id_foreign;
+ALTER TABLE IF EXISTS public.ssh_connection DROP CONSTRAINT IF EXISTS ssh_connection_user_id_foreign;
+ALTER TABLE IF EXISTS public.volume DROP CONSTRAINT IF EXISTS volume_label_id_foreign;
+ALTER TABLE IF EXISTS public.container_environment DROP CONSTRAINT IF EXISTS container_environment_container_id_foreign;
+ALTER TABLE IF EXISTS public.container_environment DROP CONSTRAINT IF EXISTS container_environment_environment_id_foreign;
+ALTER TABLE IF EXISTS public.container_network DROP CONSTRAINT IF EXISTS container_network_container_id_foreign;
+ALTER TABLE IF EXISTS public.container_network DROP CONSTRAINT IF EXISTS container_network_network_id_foreign;
+ALTER TABLE IF EXISTS public.container_label DROP CONSTRAINT IF EXISTS container_label_container_id_foreign;
+ALTER TABLE IF EXISTS public.container_label DROP CONSTRAINT IF EXISTS container_label_label_id_foreign;
+ALTER TABLE IF EXISTS public.container_volume DROP CONSTRAINT IF EXISTS container_volume_container_id_foreign;
+ALTER TABLE IF EXISTS public.container_volume DROP CONSTRAINT IF EXISTS container_volume_volume_id_foreign;
+ALTER TABLE IF EXISTS public.container_config DROP CONSTRAINT IF EXISTS container_config_restart_policy_fk;
+ALTER TABLE IF EXISTS public.container_config_devices DROP CONSTRAINT IF EXISTS container_config_devices_container_config_id_fk;
+ALTER TABLE IF EXISTS public.container_config_devices DROP CONSTRAINT IF EXISTS container_config_devices_device_id_fk;
+ALTER TABLE IF EXISTS public.container_config DROP CONSTRAINT IF EXISTS container_config_rollback_config_id_fk;
+ALTER TABLE IF EXISTS public.container_config DROP CONSTRAINT IF EXISTS container_config_update_config_id_fk;
+
+-- Dropping tables
+DROP TABLE IF EXISTS public.container_environment;
+DROP TABLE IF EXISTS public.secret;
+DROP TABLE IF EXISTS public.container_network;
+DROP TABLE IF EXISTS public.container_label;
+DROP TABLE IF EXISTS public.container_volume;
+DROP TABLE IF EXISTS public.volume;
+DROP TABLE IF EXISTS public.ssh_connection;
+DROP TABLE IF EXISTS public.registry;
+DROP TABLE IF EXISTS public.port;
+DROP TABLE IF EXISTS public.network_label;
+DROP TABLE IF EXISTS public.network;
+DROP TABLE IF EXISTS public.label;
+DROP TABLE IF EXISTS public.image;
+DROP TABLE IF EXISTS public.health_check;
+DROP TABLE IF EXISTS public.environment;
+DROP TABLE IF EXISTS public.dependency;
+DROP TABLE IF EXISTS public.container_config;
+DROP TABLE IF EXISTS public.container_stack;
+DROP TABLE IF EXISTS public.container;
+DROP TABLE IF EXISTS public."user";
+DROP TABLE IF EXISTS public.restart_policy;
+DROP TABLE IF EXISTS public.devices;
+DROP TABLE IF EXISTS public.container_config_devices;
+DROP TABLE IF EXISTS public.rollback_config;
+
+DROP TYPE public.deploy_mode;
+DROP TYPE public.disk_type;
+DROP TYPE public.restart_condition;
+DROP TYPE public.endpoint_mode;
+DROP TYPE public.failure_action;
+DROP TYPE public.rollback_order;
