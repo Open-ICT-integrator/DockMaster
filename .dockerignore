@@ -1,6 +1,7 @@
 **/.git
 **/.devcontainer
 **/.github
+**/target
 .dockerignore
 .env
 .env.example

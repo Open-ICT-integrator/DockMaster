@@ -20,21 +20,18 @@ jobs:
 
       - name: Build (debug)
         run: cargo build --verbose
-        working-directory: dock_master
 
       - name: Build (release)
         run: cargo build --release --verbose
-        working-directory: dock_master
 
       - name: Generate Documentation
         run: cargo doc --no-deps
-        working-directory: dock_master
 
       - name: Upload Binary Artifact (release)
         uses: actions/upload-artifact@v4
         with:
           name: DockMasterApi
-          path: dock_master/target/release/dock_master
+          path: target/release/dock_master
 
   test:
     needs: build
@@ -49,8 +46,6 @@ jobs:
 
       - name: Install and run Checkmate
         run: cargo install cargo-checkmate && cargo checkmate
-        working-directory: dock_master
 
       - name: Run Tests
         run: cargo test
-        working-directory: dock_master

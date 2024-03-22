@@ -9,6 +9,7 @@ use crate::models::todo::Todo;
 
 use actix_web::middleware::{Compress, Logger};
 use actix_web::{App, HttpServer};
+use std::io::Result;
 use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
 
@@ -25,7 +26,7 @@ use utoipa_swagger_ui::SwaggerUi;
 struct ApiDoc;
 
 #[actix_web::main]
-async fn main() -> std::io::Result<()> {
+async fn main() -> Result<()> {
     HttpServer::new(move || {
         let mut app = App::new()
             .wrap(Logger::default())

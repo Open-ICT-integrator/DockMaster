@@ -22,7 +22,7 @@ FROM base AS development
 RUN rustup component add rustfmt
 RUN rustup component add clippy
 RUN cargo install cargo-checkmate && \
-    cargo install sea-orm-cli
+    cargo install diesel_cli --no-default-features --features postgres
 
 ######################################################################
 # Builder Stage
@@ -31,14 +31,14 @@ FROM base AS builder
 
 COPY . .
 
-RUN cd dock_master && cargo build --release
+RUN cargo build --release
 
 ######################################################################
 # Final Stage
 ######################################################################
 FROM gcr.io/distroless/cc-debian12 AS final
 
-COPY --from=builder /usr/src/app/dock_master/target/release/dock_master .
+COPY --from=builder /usr/src/app/target/release/dock_master .
 
 EXPOSE 8080
 ENTRYPOINT ["./dock_master"]

@@ -1,9 +1,8 @@
 {
     "name": "DockMaster",
     "dockerComposeFile": [
-        "docker-compose-docker.yml",
-        "docker-compose-postgres.yml",
-        "docker-compose-dev.yml"
+        "docker-compose-dev.yml",
+        "docker-compose.yml"
     ],
     "service": "server-dev",
     "workspaceFolder": "/usr/src/app",
